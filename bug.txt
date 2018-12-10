@@ -1,0 +1,5 @@
+´íÎó£ºquery.addFilterQuery("["+split[0]+" TO " +split[1]+"]");
+ÕıÈ·£ºquery.addFilterQuery("item_price:["+split[0]+" TO " +split[1]+"]");
+
+
+

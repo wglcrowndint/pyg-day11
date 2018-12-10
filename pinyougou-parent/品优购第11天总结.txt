@@ -1,0 +1,31 @@
+品优购第11天总结
+(1)搜索页面价格区间过滤
+   a>前台
+     在searchController.js中对之前定义的searchMap={"price":""}
+	 在价格选项中定义一个点击事件，一旦事件触发，就会给searchMap中price赋值。
+   b>后台
+     从searchMap中拿到price的值，需要按照"-"切分的2个数据来进行范围过滤查询。
+	 SimpleQuery(FilterQuery)
+(2)搜索页面的分页功能完成
+   a>手写分页的算法
+     <=3   1,2,3,4,5 
+	 >=totalPage-2   totalPage-4      totalPage
+     在以上的区间范围外可以是其他
+   b>通过前台传递searchMap={pageNum:1,pageSize:40}
+     SolrTemplate 分页查询 给Query对象设置偏移量和查询多少条 2个参数 完成ForxxPage
+	 返回给前台的数据有resultMap{totalPages:,total:}
+	 页面可以根据我们自己写的分页算法来计算显示遍历pageLabel[]
+(3)搜索页面根据价格等属性排序
+   a>按照价格排序
+     searchMap={"sort":"","sortField":""}  一旦确定了searchMap sort和sortField字段的字符串类型，那么只支持单个域的排序
+	 后台完成排序：
+	   query.addSort(Sort);
+   b>按照新品排序
+     我们在tb_item中加一个solr的域item_updatetime 来完成按照更新时间来确定新品的排序
+   c>隐藏品牌列表
+     当用户输入的关键字中包含了品牌的名称之一，那么我们就隐藏品牌列表。
+   d>从首页输入搜索关键字跳转到搜索结果页面
+     点击跳转到window.location.href=http://localhost:9104/search.html#?keyword=三星
+	 在pinyougou-search-web工程中searchController.js通过$scope.searchMap.keywords= $location.search()['keywords'];
+   e>导入索引库
+	 
